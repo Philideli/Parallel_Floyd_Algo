@@ -1,7 +1,8 @@
 import random
+import multiprocessing as mp
 
 class Graph:
-    inf = 9223372036854775807
+    inf = 5 #9223372036854775807
 
     def __init__(self, size):
         self.size = size

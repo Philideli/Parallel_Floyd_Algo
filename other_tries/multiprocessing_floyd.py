@@ -2,6 +2,7 @@ import multiprocessing as mp
 
 def floyd_multiprocessed(n, graph, process_count):
     # Initialize the dist matrix
+    mp.set_start_method('fork')
     dist = [[0] * n for i in range(n)]
     for i in range(n):
         for j in range(n):
