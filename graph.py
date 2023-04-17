@@ -2,11 +2,12 @@ import random
 import multiprocessing as mp
 
 class Graph:
-    inf = 5 #9223372036854775807
+    inf = 10 #9223372036854775807
 
     def __init__(self, size):
         self.size = size
         self.graph = [[0 for x in range(size)] for x in range(size)]
+        # self.grah = [[-1,1,2,4,5],[4,-1,4,1,2],[2,0,-1,1,1],[-1,0,-1,-1,2],[0,0,2,-1,-1]] 
 
     def __getitem__(self, i):
         return self.graph[i]
