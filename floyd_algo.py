@@ -1,5 +1,6 @@
 import multiprocessing as mp
 from threading import Thread
+import concurrent.futures
 
 def floyd_sequential(graph):
     n = graph.size
@@ -9,6 +10,34 @@ def floyd_sequential(graph):
                 if (graph[i][k] >= 0 and graph[k][j] >= 0):
                     graph[i][j] = min(graph[i][k] + graph[k][j], graph[i][j])
     return graph
+
+
+def floyd_parallel(graph):
+    n = graph.size
+    INF = float('inf')
+    dist = [[INF]*n for _ in range(n)]
+    for i in range(n):
+        dist[i][i] = 0
+    
+    with concurrent.futures.ProcessPoolExecutor() as executor:
+        futures = []
+        for k in range(n):
+            for i in range(n):
+                futures.append(executor.submit(update_distance, graph, dist, i, k))
+        
+        for future in concurrent.futures.as_completed(futures):
+            pass
+        
+    return dist
+
+def update_distance(graph, dist, i, k):
+    n = graph.size
+    for j in range(n):
+        if dist[i][k] + graph[k][j] < dist[i][j]:
+            dist[i][j] = dist[i][k] + graph[k][j]
+    
+    return dist[i][j]
+
 
 def init_parallel_simple(dists_arr):
     global dists

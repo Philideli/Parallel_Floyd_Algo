@@ -4,7 +4,7 @@ import floyd_algo as floyd
 from graph import Graph
 
 # set size of the graph
-N = 50
+N = 100
 NUM_TESTS = 1
 PROC_CNT = 4
 
@@ -65,7 +65,7 @@ if __name__ == '__main__':
 
         # run parallel implementation of Floyd algorithm and measure time
         start_parallel = time.time()
-        parallel_graph = floyd.floyd_parallel_simple(parallel_graph, N)
+        parallel_graph = floyd.floyd_parallel(parallel_graph)
         parallel_time.append(time.time() - start_parallel)
 
         # check for mismatches between 2 implementation results
